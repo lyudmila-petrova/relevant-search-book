@@ -1,0 +1,36 @@
+version: '2.2'
+services:
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    hostname: elastic
+    environment:
+      - discovery.type=single-node
+      - transport.host=127.0.0.1
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - "./docker/elastic/data:/usr/share/elasticsearch/data"
+      - "./docker/elastic/config/hunspell:/usr/share/elasticsearch/config/hunspell"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - esnet
+      
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.2
+    hostname: kibana
+    environment:
+      - ELASTICSEARCH_URL=http://elastic:9200 
+    links:
+      - elastic
+    ports:
+      - 5601:5601
+    networks:
+      - esnet
+
+networks:
+  esnet:

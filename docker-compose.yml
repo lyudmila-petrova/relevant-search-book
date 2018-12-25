@@ -6,6 +6,7 @@ services:
     environment:
       - discovery.type=single-node
       - transport.host=127.0.0.1
+      - "TAKE_FILE_OWNERSHIP=true"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     volumes:
       - "./docker/elastic/data:/usr/share/elasticsearch/data"

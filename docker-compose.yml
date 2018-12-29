@@ -1,11 +1,11 @@
 version: '2.2'
 services:
   elastic:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
     hostname: elastic
     environment:
-      - discovery.type=single-node
-      - transport.host=127.0.0.1
+      - "discovery.type=single-node"
+      - "transport.host=127.0.0.1"
       - "TAKE_FILE_OWNERSHIP=true"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     volumes:
@@ -22,7 +22,7 @@ services:
       - esnet
       
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.4.2
+    image: docker.elastic.co/kibana/kibana:6.5.4
     hostname: kibana
     environment:
       - ELASTICSEARCH_URL=http://elastic:9200 
